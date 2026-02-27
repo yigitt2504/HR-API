@@ -7,26 +7,16 @@ from sqlalchemy.exc import OperationalError
 import os
 import time
 
-DATABASE_URL = settings.DATABASE_URL
-
-
-max_retries = 10
-while True:
-    try:
-        engine = create_engine(DATABASE_URL)
-        with engine.connect() as conn:
-            pass
-        break
-    except OperationalError:
-        max_retries -= 1
-        if max_retries == 0:
-            raise
-        print("Postgres bekleniyor...")
-        time.sleep(2)
-
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-
+engine = create_engine(settings.DATABASE_URL, echo=True)
+SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base()
 
+while True:
+    try:
+        with engine.connect() as conn:
+            print("Postgres hazır!")
+            break
+    except Exception as e:
+        print("Postgres bekleniyor...", e)
+        time.sleep(2)
 
