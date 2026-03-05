@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   db:
     image: postgres:15
@@ -36,10 +34,9 @@ services:
     build: ./frontend
     container_name: hr_frontend
     ports:
-      - "3000:3000"
+      - "3000:80"
     depends_on:
-      web:
-        condition: service_started
+      - web
 
 volumes:
   postgres_data:

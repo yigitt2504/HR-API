@@ -1,22 +1,23 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from .config import settings
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.exc import OperationalError
-import os
+from .config import settings
 import time
 
-engine = create_engine(settings.DATABASE_URL, echo=True)
-SessionLocal = sessionmaker(bind=engine)
+DATABASE_URL = settings.DATABASE_URL
+
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 Base = declarative_base()
 
-while True:
-    try:
-        with engine.connect() as conn:
+def wait_for_db(retries=10, delay=3):
+    for i in range(retries):
+        try:
+            conn = engine.connect()
+            conn.close()
             print("Postgres hazır!")
-            break
-    except Exception as e:
-        print("Postgres bekleniyor...", e)
-        time.sleep(2)
-
+            return
+        except OperationalError:
+            print(f"Postgres bekleniyor... ({i+1}/{retries})")
+            time.sleep(delay)
+    raise Exception("Postgres bağlanılamadı!")

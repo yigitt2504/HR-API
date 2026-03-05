@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HR Management</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.png" type="image/png">
+</head>
+<body>
+
+<h1>İK Yönetim</h1>
+
+<section id="departments">
+    <h2>Departmanlar</h2>
+
+    <form id="departmentForm">
+        <input type="text" id="deptName" placeholder="Departman Adı" required>
+        <input type="text" id="deptLocation" placeholder="Departman Lokasyonu" required>
+        <button type="submit">Departman Ekle</button>
+    </form>
+
+    <div id="deptLoading" style="display:none;">Yükleniyor...</div>
+
+    <table id="deptTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>İsim</th>
+                <th>Lokasyon</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="pagination">
+        <button onclick="prevDeptPage()">Önceki Sayfa</button>
+        <span id="deptPageInfo"></span>
+        <button onclick="nextDeptPage()">Sonraki Sayfa</button>
+    </div>
+
+</section>
+
+
+<section id="employees">
+    <h2>Çalışanlar</h2>
+
+    <form id="employeeForm">
+        <input type="text" id="empFirstName" placeholder="İsim" required>
+        <input type="text" id="empLastName" placeholder="Soyad" required>
+        <input type="email" id="empEmail" placeholder="Email" required>
+        <input type="number" id="empSalary" placeholder="Maaş" required>
+        <input type="date" id="empDate" required>
+        <select id="empDept" required></select>
+        <button type="submit">Çalışan Ekle</button>
+    </form>
+
+    <div id="empLoading" style="display:none;">Yükleniyor...</div>
+
+    <table id="empTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>Email</th>
+                <th>Maaş</th>
+                <th>Giriş Tarihi</th>
+                <th>Departman</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="pagination">
+        <button onclick="prevEmpPage()">Önceki Sayfa</button>
+        <span id="empPageInfo"></span>
+        <button onclick="nextEmpPage()">Sonraki Sayfa</button>
+    </div>
+</section>
+
+<script src="app.js"></script>
+
+</body>
+</html>
