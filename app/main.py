@@ -1,8 +1,9 @@
-from fastapi import FastAPI
+import logging
+import time
+from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.exc import IntegrityError
-import logging
 from app.database import engine, Base, wait_for_db
 from app import models
 from app.routers import departments, employees
@@ -12,6 +13,18 @@ wait_for_db()
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    logger.info(f"Incoming request: {request.method} {request.url}")
+    start_time = time.time()
+    
+    response = await call_next(request)
+    
+    process_time = (time.time() - start_time) * 1000
+    logger.info(f"Completed {request.method} {request.url} - Status: {response.status_code} - Time: {process_time:.2f}ms")
+    
+    return response
 
 origins = ["http://localhost:3000"]
 app.add_middleware(

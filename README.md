@@ -1,4 +1,4 @@
-# HR API Project Description
+## How to use HR API
 
 We need to download Docker after opening the folder.
 We use these codes to do it.
@@ -19,8 +19,7 @@ All changes are automatically saved to the backend database, and the UI updates 
 Use this code to stop the project.
 docker compose down
 
-
-# HR API Proje Açıklaması
+## HR API Proje Kullanımı
 
 Dosyayı açtıktan sonra Docker'ı yüklemek gerekir.
 Ubuntu'da aşağıdaki komutlarla tamamlanabilir.

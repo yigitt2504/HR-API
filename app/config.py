@@ -8,3 +8,4 @@ class Settings:
 
 settings = Settings()
 
+MIN_SALARY = 10000
