@@ -2,7 +2,7 @@ from fastapi import Header, HTTPException, Depends
 from .database import SessionLocal
 from sqlalchemy.orm import Session
 
-API_KEY = "***REMOVED***"
+API_KEY = "api_key123"
 
 def verify_api_key(x_api_key: str = Header(...)):
     if x_api_key != API_KEY:
