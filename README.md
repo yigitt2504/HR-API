@@ -37,6 +37,7 @@ Use the following command to stop the project:
 
 # Project Structure
 
+```
 hr_api
 ├── app
 │ ├── config.py
@@ -64,6 +65,7 @@ hr_api
 │ ├── favicon.png
 │ ├── index.html
 │ └── style.css
+```
 
 # Code Structure
 
@@ -156,6 +158,7 @@ Projeyi durdurmak için aşağıdaki komutu kullanabilirsiniz:
 
 # Proje Mimarisi
 
+```
 hr_api
 ├── app
 │ ├── config.py
@@ -183,6 +186,7 @@ hr_api
 │ ├── favicon.png
 │ ├── index.html
 │ └── style.css
+```
 
 # Kod Mimarisi
 
