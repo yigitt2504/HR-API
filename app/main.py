@@ -8,6 +8,9 @@ from app.database import engine, Base, wait_for_db
 from app import models
 from app.routers import departments, employees
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 wait_for_db()
 
 Base.metadata.create_all(bind=engine)
@@ -35,14 +38,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
 @app.exception_handler(IntegrityError)
 async def integrity_exception_handler(request, exc):
     return JSONResponse(
         status_code=400,
         content={"detail": "Veri bütünlüğü hatası."},
+    )
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    logger.error(f"Unhandled error occurred: {str(exc)}")
+
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Internal server error"}
     )
 
 @app.get("/")
